@@ -10,10 +10,9 @@ namespace ProjectPromotionTest
 {
     public class FinalPriceCalulatorTests
     {
-
         public FinalPriceCalulatorTests()
         {
-
+        
         }
 
         public static IEnumerable<object[]> SetValuesAndGetResponse => new List<object[]>

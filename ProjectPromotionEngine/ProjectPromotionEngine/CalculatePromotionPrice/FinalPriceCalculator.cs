@@ -13,6 +13,11 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
         private const int PriceOfD = 15;
         private const int PriceOfC_D = 30;
 
+        public FinalPriceCalculator()
+        {
+
+        }
+
         public int CalculateFinalPrice(GetQuantityDetails quantityDetails)
         {
             var (quantA, quantB, quantC, quantD) = ConvertToInteger(quantityDetails);
@@ -21,33 +26,13 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
 
             quantB = TotalPriceOfB(quantB);
 
-            quantC = TotalCandD(quantC, quantD);
+            quantC = TotalPriceOfCAndD(quantC, quantD);
 
             return quantA + quantB + quantC;
 
         }
 
-        private (int, int, int, int) ConvertToInteger(GetQuantityDetails quantityDetails)
-        {
-            int a, b, c, d;
-            try
-            {
-                a = Int32.Parse(quantityDetails.AQty);
-                b = Int32.Parse(quantityDetails.BQty);
-                c = Int32.Parse(quantityDetails.CQty);
-                d = Int32.Parse(quantityDetails.DQty);
-
-
-            }
-            catch (FormatException e)
-            {
-                return (0, 0, 0, 0);
-            }
-
-            return (a, b, c, d);
-        }
-
-        private int TotalPriceOfA(int quantityOfA)
+        public int TotalPriceOfA(int quantityOfA)
         {
             var (quotient, remainder) = DivideAndGetQuotient(quantityOfA, 3);
             var price = quotient * 130;
@@ -56,7 +41,7 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
             return price + subPrice;
         }
 
-        private int TotalPriceOfB(int quantityOfB)
+        public int TotalPriceOfB(int quantityOfB)
         {
             var (quotient, remainder) = DivideAndGetQuotient(quantityOfB, 2);
             var price = quotient * 45;
@@ -65,7 +50,7 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
             return price + subPrice;
         }
 
-        private int TotalCandD(int quantityOfC, int quantityOfD)
+        public int TotalPriceOfCAndD(int quantityOfC, int quantityOfD)
         {
             if (quantityOfC == quantityOfD)
             {
@@ -87,7 +72,6 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
 
                 return basePrice + subPrice;
             }
-
         }
 
         private (int, int) DivideAndGetQuotient(int divident, int divisor)
@@ -96,6 +80,26 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
             var quotient = divident / divisor;
 
             return (quotient, remainder);
+        }
+
+        private (int, int, int, int) ConvertToInteger(GetQuantityDetails quantityDetails)
+        {
+            int a, b, c, d;
+            try
+            {
+                a = Int32.Parse(quantityDetails.AQty);
+                b = Int32.Parse(quantityDetails.BQty);
+                c = Int32.Parse(quantityDetails.CQty);
+                d = Int32.Parse(quantityDetails.DQty);
+
+
+            }
+            catch (FormatException e)
+            {
+                return (0, 0, 0, 0);
+            }
+
+            return (a, b, c, d);
         }
     }
 }
