@@ -30,7 +30,7 @@ namespace ProjectPromotionTest
             new object[] { new GetQuantityDetails("0", "0", "1", "0"), 20},
             new object[] { new GetQuantityDetails("0", "0", "0", "1"), 15},
             new object[] { new GetQuantityDetails("0", "0", "1", "1"), 30},
-            new object[] { new GetQuantityDetails("0", "0", "6", "5"), 30},
+            new object[] { new GetQuantityDetails("0", "0", "6", "5"), 170},
             new object[] { new GetQuantityDetails("0", "0", "3", "3"), 90},
         };
 

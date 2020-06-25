@@ -50,8 +50,8 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
         private int TotalPriceOfA(int quantityOfA)
         {
             var (quotient, remainder) = DivideAndGetQuotient(quantityOfA, 3);
-            var price = quotient * PriceOfA;
-            var subPrice = remainder * 50;
+            var price = quotient * 130;
+            var subPrice = remainder * PriceOfA;
 
             return price + subPrice;
         }
@@ -59,8 +59,8 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
         private int TotalPriceOfB(int quantityOfB)
         {
             var (quotient, remainder) = DivideAndGetQuotient(quantityOfB, 2);
-            var price = quotient * PriceOfB;
-            var subPrice = remainder * 30;
+            var price = quotient * 45;
+            var subPrice = remainder * PriceOfB;
 
             return price + subPrice;
         }
@@ -71,7 +71,23 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
             {
                 return quantityOfC * PriceOfC_D;
             }
-            return 0;
+
+            else if (quantityOfC > quantityOfD)
+            {
+                var basePrice = quantityOfD * PriceOfC_D;
+                var subPrice = (quantityOfC - quantityOfD) * PriceOfC;
+
+                return basePrice + subPrice;
+            }
+
+            else
+            {
+                var basePrice = quantityOfC * PriceOfC_D;
+                var subPrice = (quantityOfD - quantityOfC) * PriceOfD;
+
+                return basePrice + subPrice;
+            }
+
         }
 
         private (int, int) DivideAndGetQuotient(int divident, int divisor)
