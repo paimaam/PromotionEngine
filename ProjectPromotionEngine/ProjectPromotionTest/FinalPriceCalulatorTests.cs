@@ -63,5 +63,20 @@ namespace ProjectPromotionTest
             //Assert
             obtainedTotal.Should().Be(expected);
         }
+
+
+        [Fact]
+        public void ShouldReturnZeroIfNonIntegerIsPassedInReuqest()
+        {
+            //Arrange
+            var test = new FinalPriceCalculator();
+            var expected = 0;
+
+            //Act
+            var obtainedTotal = test.CalculateFinalPrice(new GetQuantityDetails("a","b", "c", "d"));
+
+            //Assert
+            obtainedTotal.Should().Be(expected);
+        }
     }
 }
