@@ -10,9 +10,10 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
         private const int PriceOfA = 50;
         private const int PriceOfB = 30;
         private const int PriceOfC = 20;
-        private const int PriceOfD = 20;
+        private const int PriceOfD = 15;
+        private const int PriceOfC_D = 30;
 
-        public int  CalculateFinalPrice(GetQuantityDetails quantityDetails)
+        public int CalculateFinalPrice(GetQuantityDetails quantityDetails)
         {
             var (quantA, quantB, quantC, quantD) = ConvertToInteger(quantityDetails);
 
@@ -20,19 +21,21 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
 
             quantB = TotalPriceOfB(quantB);
 
-            return quantA + quantB + 20;
+            quantC = TotalCandD(quantC, quantD);
+
+            return quantA + quantB + quantC;
 
         }
 
-        private (int, int, int, int ) ConvertToInteger(GetQuantityDetails quantityDetails)
+        private (int, int, int, int) ConvertToInteger(GetQuantityDetails quantityDetails)
         {
             int a, b, c, d;
             try
             {
-                 a = Int32.Parse(quantityDetails.AQty);
-                 b = Int32.Parse(quantityDetails.BQty);
-                 c = Int32.Parse(quantityDetails.CQty);
-                 d = Int32.Parse(quantityDetails.DQty);
+                a = Int32.Parse(quantityDetails.AQty);
+                b = Int32.Parse(quantityDetails.BQty);
+                c = Int32.Parse(quantityDetails.CQty);
+                d = Int32.Parse(quantityDetails.DQty);
 
 
             }
@@ -47,7 +50,7 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
         private int TotalPriceOfA(int quantityOfA)
         {
             var (quotient, remainder) = DivideAndGetQuotient(quantityOfA, 3);
-            var price = quotient * 130;
+            var price = quotient * PriceOfA;
             var subPrice = remainder * 50;
 
             return price + subPrice;
@@ -56,10 +59,19 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
         private int TotalPriceOfB(int quantityOfB)
         {
             var (quotient, remainder) = DivideAndGetQuotient(quantityOfB, 2);
-            var price = quotient * 45;
+            var price = quotient * PriceOfB;
             var subPrice = remainder * 30;
 
             return price + subPrice;
+        }
+
+        private int TotalCandD(int quantityOfC, int quantityOfD)
+        {
+            if (quantityOfC == quantityOfD)
+            {
+                return quantityOfC * PriceOfC_D;
+            }
+            return 0;
         }
 
         private (int, int) DivideAndGetQuotient(int divident, int divisor)

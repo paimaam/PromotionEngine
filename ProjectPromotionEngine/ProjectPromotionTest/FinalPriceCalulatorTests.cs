@@ -24,6 +24,16 @@ namespace ProjectPromotionTest
 
         };
 
+        public static IEnumerable<object[]> SomeSetEspeciallyForCandD => new List<object[]>
+        {
+            new object[] { new GetQuantityDetails("0", "0", "3", "4"), 105},
+            new object[] { new GetQuantityDetails("0", "0", "1", "0"), 20},
+            new object[] { new GetQuantityDetails("0", "0", "0", "1"), 15},
+            new object[] { new GetQuantityDetails("0", "0", "1", "1"), 30},
+            new object[] { new GetQuantityDetails("0", "0", "6", "5"), 30},
+            new object[] { new GetQuantityDetails("0", "0", "3", "3"), 90},
+        };
+
         [Theory]
         [MemberData(nameof(SetValuesAndGetResponse))]
         public void ActivePromotionScenariosAllScenarios(GetQuantityDetails getQuantityDetails, int expected)
@@ -37,6 +47,21 @@ namespace ProjectPromotionTest
             //Assert
             obtainedTotal.Should().Be(expected);
 
+        }
+
+
+        [Theory]
+        [MemberData(nameof(SomeSetEspeciallyForCandD))]
+        public void GetTotalPriceOnCAndD(GetQuantityDetails getQuantityDetails, int expected)
+        {
+            //Arrange
+            var test = new FinalPriceCalculator();
+
+            //Act
+            var obtainedTotal = test.CalculateFinalPrice(getQuantityDetails);
+
+            //Assert
+            obtainedTotal.Should().Be(expected);
         }
     }
 }
