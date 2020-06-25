@@ -14,10 +14,13 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
 
         public int  CalculateFinalPrice(GetQuantityDetails quantityDetails)
         {
-            var (asku, bsku, csku, dsku) = ConvertToInteger(quantityDetails);
+            var (quantA, quantB, quantC, quantD) = ConvertToInteger(quantityDetails);
 
-            asku = TotalPriceOfA(asku);
-            return asku;
+            quantA = TotalPriceOfA(quantA);
+
+            quantB = TotalPriceOfB(quantB);
+
+            return quantA + quantB + 20;
 
         }
 
@@ -46,6 +49,15 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
             var (quotient, remainder) = DivideAndGetQuotient(quantityOfA, 3);
             var price = quotient * 130;
             var subPrice = remainder * 50;
+
+            return price + subPrice;
+        }
+
+        private int TotalPriceOfB(int quantityOfB)
+        {
+            var (quotient, remainder) = DivideAndGetQuotient(quantityOfB, 2);
+            var price = quotient * 45;
+            var subPrice = remainder * 30;
 
             return price + subPrice;
         }

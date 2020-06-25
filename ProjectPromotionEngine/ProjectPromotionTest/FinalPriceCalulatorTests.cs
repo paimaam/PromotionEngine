@@ -28,9 +28,13 @@ namespace ProjectPromotionTest
         [MemberData(nameof(SetValuesAndGetResponse))]
         public void ActivePromotionScenariosAllScenarios(GetQuantityDetails getQuantityDetails, int expected)
         {
+            //Arrange
             var test = new FinalPriceCalculator();
+            
+            //Act
             var obtainedTotal = test.CalculateFinalPrice(getQuantityDetails);
 
+            //Assert
             obtainedTotal.Should().Be(expected);
 
         }
