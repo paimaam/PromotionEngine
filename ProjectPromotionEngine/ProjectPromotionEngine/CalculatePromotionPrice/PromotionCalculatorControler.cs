@@ -25,12 +25,5 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
             var total =  _finalPriceCalculatorService.CalculateFinalPrice(quantityDetails);
             return Ok(total);
         }
-
-        [HttpGet]
-        public ActionResult Get()
-        {
-         
-            return Ok();
-        }
     }
 }
