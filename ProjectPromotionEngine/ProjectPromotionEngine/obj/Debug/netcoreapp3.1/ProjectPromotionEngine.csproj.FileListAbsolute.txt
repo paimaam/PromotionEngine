@@ -1,7 +1,6 @@
 C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromotionEngine\obj\Debug\netcoreapp3.1\ProjectPromotionEngine.csprojAssemblyReference.cache
 C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromotionEngine\obj\Debug\netcoreapp3.1\ProjectPromotionEngine.AssemblyInfoInputs.cache
 C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromotionEngine\obj\Debug\netcoreapp3.1\ProjectPromotionEngine.AssemblyInfo.cs
-C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromotionEngine\obj\Debug\netcoreapp3.1\ProjectPromotionEngine.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromotionEngine\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromotionEngine\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromotionEngine\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
@@ -17,3 +16,9 @@ C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromot
 C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromotionEngine\obj\Debug\netcoreapp3.1\ProjectPromotionEngine.dll
 C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromotionEngine\obj\Debug\netcoreapp3.1\ProjectPromotionEngine.pdb
 C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromotionEngine\obj\Debug\netcoreapp3.1\ProjectPromotionEngine.genruntimeconfig.cache
+C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromotionEngine\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromotionEngine\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromotionEngine\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromotionEngine\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromotionEngine\obj\Debug\netcoreapp3.1\ProjectPromotionEngine.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\DP00557033\Desktop\PromotionEngine\ProjectPromotionEngine\ProjectPromotionEngine\obj\Debug\netcoreapp3.1\ProjectPromotionEngine.csproj.CopyComplete
