@@ -88,17 +88,20 @@ namespace ProjectPromotionTest
 
 
         [Fact]
-        public void ShouldReturnZeroIfNonIntegerIsPassedInReuqest()
+        public async Task ShouldReturnZeroIfNonIntegerIsPassedInReuqest()
         {
-            //Arrange
-            var test = new FinalPriceCalculator();
-            var expected = 0;
+            // Arrange
+            string json = JsonConvert.SerializeObject(new GetQuantityDetails("a", "vv", "mm", "oo"), Formatting.Indented);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var expected = "0";
 
             //Act
-            var obtainedTotal = test.CalculateFinalPrice(new GetQuantityDetails("a","b", "c", "d"));
+            var response = await _client.PostAsync("/CalculateFinalPrice", httpContent);
 
             //Assert
-            obtainedTotal.Should().Be(expected);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            var obtainedResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            obtainedResponse.Should().Be(expected);
         }
     }
 }
