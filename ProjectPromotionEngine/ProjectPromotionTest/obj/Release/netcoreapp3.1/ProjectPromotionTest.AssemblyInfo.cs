@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap4")]
 [assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("ProjectPromotionEngine", "D:\\PromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine", "ProjectPromotionEngine.csproj", "0")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProjectPromotionTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]

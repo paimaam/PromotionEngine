@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProjectPromotionEngine.CalculatePromotionPrice;
+using ProjectPromotionEngine.CalculatePromotionPrice.PriceCaluclatorforSku;
 
 namespace ProjectPromotionEngine
 {
@@ -25,6 +24,19 @@ namespace ProjectPromotionEngine
         {
             services.AddControllers().AddNewtonsoftJson();
             services.AddSingleton<IFinalPriceCalculatorService, FinalPriceCalculator>();
+            services.AddSingleton<IModulePriceCalculator, ModulePriceCalculator>();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0).ConfigureApiBehaviorOptions(options =>
+            {
+                options.InvalidModelStateResponseFactory = actionContext => {
+                    //CustomErrorResponse is method that gets model validation errors     
+                    //using ActionContext creates customized response,  
+                    // and converts invalid model state dictionary    
+
+                    return CustomErrorResponse(actionContext);
+                };
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +57,20 @@ namespace ProjectPromotionEngine
             {
                 endpoints.MapControllers();
             });
+        }
+
+
+        private BadRequestObjectResult CustomErrorResponse(ActionContext actionContext)
+        {
+            //BadRequestObjectResult is class found Microsoft.AspNetCore.Mvc and is inherited from ObjectResult.    
+            //Rest code is linq.    
+            return new BadRequestObjectResult(actionContext.ModelState
+             .Where(modelError => modelError.Value.Errors.Count > 0)
+             .Select(modelError => new CustomError
+             {
+                 ErrorField = modelError.Key,
+                 ErrorDescription = modelError.Value.Errors.FirstOrDefault().ErrorMessage
+             }).ToList());
         }
     }
 }

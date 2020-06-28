@@ -88,20 +88,17 @@ namespace ProjectPromotionTest
 
 
         [Fact]
-        public async Task ShouldReturnZeroIfNonIntegerIsPassedInReuqest()
+        public async Task ShouldReturnBadRequestIfInvalidInputIsPassed()
         {
             // Arrange
-            string json = JsonConvert.SerializeObject(new GetQuantityDetails("a", "vv", "mm", "oo"), Formatting.Indented);
+            string json = JsonConvert.SerializeObject(new GetQuantityDetails("a", "22", "5", "oo"), Formatting.Indented);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-            var expected = "0";
 
             //Act
             var response = await _client.PostAsync("/CalculateFinalPrice", httpContent);
 
             //Assert
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-            var obtainedResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            obtainedResponse.Should().Be(expected);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
     }
 }
