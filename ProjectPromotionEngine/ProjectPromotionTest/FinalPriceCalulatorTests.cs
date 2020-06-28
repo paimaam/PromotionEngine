@@ -41,16 +41,19 @@ namespace ProjectPromotionTest
 
         [Theory]
         [MemberData(nameof(SetValuesAndGetResponse))]
-        public void ActivePromotionScenariosAllScenarios(GetQuantityDetails getQuantityDetails, int expected)
+        public async Task ActivePromotionScenariosAllScenarios(GetQuantityDetails getQuantityDetails, int expected)
         {
             //Arrange
-            var test = new FinalPriceCalculator();
-            
+            string json = JsonConvert.SerializeObject(getQuantityDetails, Formatting.Indented);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
             //Act
-            var obtainedTotal = test.CalculateFinalPrice(getQuantityDetails);
+            var response = await _client.PostAsync("/CalculateFinalPrice", httpContent);
 
             //Assert
-            obtainedTotal.Should().Be(expected);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            var obtainedResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            obtainedResponse.Should().Be(expected.ToString());
 
         }
 
@@ -68,16 +71,19 @@ namespace ProjectPromotionTest
 
         [Theory]
         [MemberData(nameof(SomeSetEspeciallyForCandD))]
-        public void GetTotalPriceOnCAndD(GetQuantityDetails getQuantityDetails, int expected)
+        public async Task GetTotalPriceOnCAndD(GetQuantityDetails getQuantityDetails, int expected)
         {
             //Arrange
-            var test = new FinalPriceCalculator();
+            string json = JsonConvert.SerializeObject(getQuantityDetails, Formatting.Indented);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             //Act
-            var obtainedTotal = test.CalculateFinalPrice(getQuantityDetails);
+            var response = await _client.PostAsync("/CalculateFinalPrice", httpContent);
 
             //Assert
-            obtainedTotal.Should().Be(expected);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            var obtainedResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            obtainedResponse.Should().Be(expected.ToString());
         }
 
 
