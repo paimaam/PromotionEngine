@@ -1,102 +1,27 @@
-﻿using System;
+﻿using ProjectPromotionEngine.CalculatePromotionPrice.PriceCaluclatorforSku;
+using System;
 
 namespace ProjectPromotionEngine.CalculatePromotionPrice
 {
     public class FinalPriceCalculator : IFinalPriceCalculatorService
     {
-        private const int PriceOfA = 50;
-        private const int PriceOfB = 30;
-        private const int PriceOfC = 20;
-        private const int PriceOfD = 15;
-        private const int PriceOfC_D = 30;
 
-        public FinalPriceCalculator()
+        private readonly IModulePriceCalculator _modulePriceCalculator;
+        public FinalPriceCalculator(IModulePriceCalculator modulePriceCalculator)
         {
-
+            _modulePriceCalculator = modulePriceCalculator;
         }
 
         public int CalculateFinalPrice(GetQuantityDetails quantityDetails)
         {
-            var (quantA, quantB, quantC, quantD) = ConvertToInteger(quantityDetails);
+            var quantA = _modulePriceCalculator.TotalPriceOfA(int.Parse(quantityDetails.AQty));
 
-            quantA = TotalPriceOfA(quantA);
+            var quantB = _modulePriceCalculator.TotalPriceOfB(int.Parse(quantityDetails.BQty));
 
-            quantB = TotalPriceOfB(quantB);
-
-            quantC = TotalPriceOfCAndD(quantC, quantD);
+            var quantC = _modulePriceCalculator.TotalPriceOfCAndD(int.Parse(quantityDetails.CQty), int.Parse(quantityDetails.DQty));
 
             return quantA + quantB + quantC;
 
-        }
-
-        public int TotalPriceOfA(int quantityOfA)
-        {
-            var (quotient, remainder) = DivideAndGetQuotient(quantityOfA, 3);
-            var price = quotient * 130;
-            var subPrice = remainder * PriceOfA;
-
-            return price + subPrice;
-        }
-
-        public int TotalPriceOfB(int quantityOfB)
-        {
-            var (quotient, remainder) = DivideAndGetQuotient(quantityOfB, 2);
-            var price = quotient * 45;
-            var subPrice = remainder * PriceOfB;
-
-            return price + subPrice;
-        }
-
-        public int TotalPriceOfCAndD(int quantityOfC, int quantityOfD)
-        {
-            if (quantityOfC == quantityOfD)
-            {
-                return quantityOfC * PriceOfC_D;
-            }
-
-            else if (quantityOfC > quantityOfD)
-            {
-                var basePrice = quantityOfD * PriceOfC_D;
-                var subPrice = (quantityOfC - quantityOfD) * PriceOfC;
-
-                return basePrice + subPrice;
-            }
-
-            else
-            {
-                var basePrice = quantityOfC * PriceOfC_D;
-                var subPrice = (quantityOfD - quantityOfC) * PriceOfD;
-
-                return basePrice + subPrice;
-            }
-        }
-
-        private (int, int) DivideAndGetQuotient(int divident, int divisor)
-        {
-            var remainder = divident % divisor;
-            var quotient = divident / divisor;
-
-            return (quotient, remainder);
-        }
-
-        private (int, int, int, int) ConvertToInteger(GetQuantityDetails quantityDetails)
-        {
-            int a, b, c, d;
-            try
-            {
-                a = Int32.Parse(quantityDetails.AQty);
-                b = Int32.Parse(quantityDetails.BQty);
-                c = Int32.Parse(quantityDetails.CQty);
-                d = Int32.Parse(quantityDetails.DQty);
-
-
-            }
-            catch (FormatException e)
-            {
-                return (0, 0, 0, 0);
-            }
-
-            return (a, b, c, d);
         }
     }
 }

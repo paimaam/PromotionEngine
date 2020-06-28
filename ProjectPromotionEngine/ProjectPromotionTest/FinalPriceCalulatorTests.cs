@@ -1,15 +1,24 @@
 using FluentAssertions;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json;
+using ProjectPromotionEngine;
 using ProjectPromotionEngine.CalculatePromotionPrice;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace ProjectPromotionTest
 {
     public class FinalPriceCalulatorTests
     {
+        private readonly HttpClient _client;
         public FinalPriceCalulatorTests()
         {
-        
+            var factory = new WebApplicationFactory<Startup>();
+            _client = factory.CreateClient();
         }
 
         public static IEnumerable<object[]> SetValuesAndGetResponse => new List<object[]>
@@ -32,47 +41,64 @@ namespace ProjectPromotionTest
 
         [Theory]
         [MemberData(nameof(SetValuesAndGetResponse))]
-        public void ActivePromotionScenariosAllScenarios(GetQuantityDetails getQuantityDetails, int expected)
+        public async Task ActivePromotionScenariosAllScenarios(GetQuantityDetails getQuantityDetails, int expected)
         {
             //Arrange
-            var test = new FinalPriceCalculator();
-            
+            string json = JsonConvert.SerializeObject(getQuantityDetails, Formatting.Indented);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
             //Act
-            var obtainedTotal = test.CalculateFinalPrice(getQuantityDetails);
+            var response = await _client.PostAsync("/CalculateFinalPrice", httpContent);
 
             //Assert
-            obtainedTotal.Should().Be(expected);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            var obtainedResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            obtainedResponse.Should().Be(expected.ToString());
 
+        }
+
+        [Fact]
+        public async Task HitTheEndPoint()
+        {
+
+            string json = JsonConvert.SerializeObject(new GetQuantityDetails("0", "0", "3", "4"), Formatting.Indented);
+            var httpContent = new StringContent(json,Encoding.UTF8,"application/json");
+
+            var response = await _client.PostAsync("/CalculateFinalPrice", httpContent);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
 
         [Theory]
         [MemberData(nameof(SomeSetEspeciallyForCandD))]
-        public void GetTotalPriceOnCAndD(GetQuantityDetails getQuantityDetails, int expected)
+        public async Task GetTotalPriceOnCAndD(GetQuantityDetails getQuantityDetails, int expected)
         {
             //Arrange
-            var test = new FinalPriceCalculator();
+            string json = JsonConvert.SerializeObject(getQuantityDetails, Formatting.Indented);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             //Act
-            var obtainedTotal = test.CalculateFinalPrice(getQuantityDetails);
+            var response = await _client.PostAsync("/CalculateFinalPrice", httpContent);
 
             //Assert
-            obtainedTotal.Should().Be(expected);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            var obtainedResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            obtainedResponse.Should().Be(expected.ToString());
         }
 
 
         [Fact]
-        public void ShouldReturnZeroIfNonIntegerIsPassedInReuqest()
+        public async Task ShouldReturnBadRequestIfInvalidInputIsPassed()
         {
-            //Arrange
-            var test = new FinalPriceCalculator();
-            var expected = 0;
+            // Arrange
+            string json = JsonConvert.SerializeObject(new GetQuantityDetails("a", "22", "5", "oo"), Formatting.Indented);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             //Act
-            var obtainedTotal = test.CalculateFinalPrice(new GetQuantityDetails("a","b", "c", "d"));
+            var response = await _client.PostAsync("/CalculateFinalPrice", httpContent);
 
             //Assert
-            obtainedTotal.Should().Be(expected);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
     }
 }

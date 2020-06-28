@@ -16,8 +16,10 @@ namespace ProjectPromotionEngine.CalculatePromotionPrice
         [HttpPost]
         public ActionResult<int> Post([Required][FromBody] GetQuantityDetails quantityDetails)
         {
-            var total =  _finalPriceCalculatorService.CalculateFinalPrice(quantityDetails);
+
+            var total = _finalPriceCalculatorService.CalculateFinalPrice(quantityDetails);
             return Ok(total);
+
         }
     }
 }

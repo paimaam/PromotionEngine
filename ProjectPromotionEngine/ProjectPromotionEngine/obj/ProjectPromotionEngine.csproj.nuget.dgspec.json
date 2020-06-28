@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DP00557033\\Desktop\\PromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine.csproj": {}
+    "D:\\PromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DP00557033\\Desktop\\PromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine.csproj": {
+    "D:\\PromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DP00557033\\Desktop\\PromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine.csproj",
+        "projectUniqueName": "D:\\PromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine.csproj",
         "projectName": "ProjectPromotionEngine",
-        "projectPath": "C:\\Users\\DP00557033\\Desktop\\PromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine.csproj",
-        "packagesPath": "C:\\Users\\DP00557033\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DP00557033\\Desktop\\PromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine\\obj\\",
+        "projectPath": "D:\\PromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine.csproj",
+        "packagesPath": "C:\\Users\\Dileep Pai\\.nuget\\packages\\",
+        "outputPath": "D:\\PromotionEngine\\ProjectPromotionEngine\\ProjectPromotionEngine\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\DP00557033\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Dileep Pai\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -41,6 +38,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[3.1.5, )"
+            },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
               "version": "[3.1.5, )"
@@ -64,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
